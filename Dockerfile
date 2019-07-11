@@ -36,10 +36,6 @@ RUN cd $CATALINA_HOME && \
     -s '/Server/Service/Engine/Host/Context[@path="/ROOT"]' -t 'elem' -n 'WatchedResource' -v 'WEB-INF/web.xml' \
     conf/server.xml
 
-# Remove external URLs (just precaution)
-COPY custom_urls.js webapps/draw/custom_urls.js
-RUN sed -i "/App.main();/i mxscript('custom_urls.js');" webapps/draw/index.html
-
 WORKDIR $CATALINA_HOME
 
 EXPOSE 8080
