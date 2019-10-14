@@ -34,6 +34,9 @@ RUN cd $CATALINA_HOME && \
     -i '/Server/Service/Engine/Host/Context[not(@path="/")]' -t 'attr' -n 'path' -v '/ROOT' \
     -s '/Server/Service/Engine/Host/Context[@path="/ROOT"]' -t 'attr' -n 'docBase' -v 'ROOT' \
     -s '/Server/Service/Engine/Host/Context[@path="/ROOT"]' -t 'elem' -n 'WatchedResource' -v 'WEB-INF/web.xml' \
+    -s '/Server/Service/Engine/Host' -t 'elem' -n 'Valve' \
+    -s "/Server/Service/Engine/Host/Valve[not(@directory='logs')]" -t 'attr' -n 'className' -v 'org.apache.catalina.valves.RemoteHostValve' \
+    -s "/Server/Service/Engine/Host/Valve[not(@directory='logs')]" -t 'attr' -n 'allow' -v 'oostandarddev\-.*\.cern\.ch|oostandardprod\-.*\.cern\.ch' \
     conf/server.xml
 
 WORKDIR $CATALINA_HOME
