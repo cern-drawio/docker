@@ -10,17 +10,17 @@ RUN apt-get update -y && \
     cd /tmp && \
     wget https://github.com/cern-drawio/drawio/archive/v${VERSION}-cern.zip && \
     unzip v${VERSION}-cern.zip && \
-    cd /tmp/drawio-v${VERSION}-cern/etc/build && \
+    cd /tmp/drawio-${VERSION}-cern/etc/build && \
     ant war && \
-    cd /tmp/drawio-v${VERSION}-cern/build && \
-    unzip /tmp/drawio-v${VERSION}-cern/build/draw.war -d $CATALINA_HOME/webapps/draw && \
+    cd /tmp/drawio-${VERSION}-cern/build && \
+    unzip /tmp/drawio-${VERSION}-cern/build/draw.war -d $CATALINA_HOME/webapps/draw && \
     apt-get remove -y --purge openjdk-11-jdk-headless ant git patch wget && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf \
         /var/lib/apt/lists/* \
         /tmp/v${VERSION}-cern.zip \
-        /tmp/drawio-v${VERSION}-cern
+        /tmp/drawio-${VERSION}-cern
 
 # Update server.xml to set Draw.io webapp to root
 RUN cd $CATALINA_HOME && \
