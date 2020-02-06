@@ -2,7 +2,7 @@ FROM tomcat:9-jre11-slim
 
 LABEL maintainer="Esteban Puentes <esteban.puentes@cern.ch>"
 
-ENV VERSION=12.2.8
+ENV VERSION=12.6.5
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
