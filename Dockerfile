@@ -2,25 +2,23 @@ FROM tomcat:9-jre11-slim
 
 LABEL maintainer="Esteban Puentes <esteban.puentes@cern.ch>"
 
-ENV VERSION=12.6.5
-
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
         openjdk-11-jdk-headless ant git patch wget xmlstarlet && \
     cd /tmp && \
-    wget https://github.com/cern-drawio/drawio/archive/v${VERSION}-cern.zip && \
-    unzip v${VERSION}-cern.zip && \
-    cd /tmp/drawio-${VERSION}-cern/etc/build && \
+    wget https://github.com/cern-drawio/drawio/archive/v${VERSION}.zip && \
+    unzip v${VERSION}.zip && \
+    cd /tmp/drawio-${VERSION}/etc/build && \
     ant war && \
-    cd /tmp/drawio-${VERSION}-cern/build && \
-    unzip /tmp/drawio-${VERSION}-cern/build/draw.war -d $CATALINA_HOME/webapps/draw && \
+    cd /tmp/drawio-${VERSION}/build && \
+    unzip /tmp/drawio-${VERSION}/build/draw.war -d $CATALINA_HOME/webapps/draw && \
     apt-get remove -y --purge openjdk-11-jdk-headless ant git patch wget && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf \
         /var/lib/apt/lists/* \
-        /tmp/v${VERSION}-cern.zip \
-        /tmp/drawio-${VERSION}-cern
+        /tmp/v${VERSION}.zip \
+        /tmp/drawio-${VERSION}
 
 # Update server.xml to set Draw.io webapp to root
 RUN cd $CATALINA_HOME && \
